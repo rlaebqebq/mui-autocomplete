@@ -1,0 +1,16 @@
+main {
+  padding: 20px;
+}
+
+.empty-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  margin: 20px 0;
+  background-color: #aaaaaa;
+}
+
+.select-box {
+  width: 250px;
+}

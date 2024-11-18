@@ -1,0 +1,253 @@
+@keyframes smoothBottomToTop {
+  /*0% {*/
+  /*  !*opacity: 0;*!*/
+  /*  transform: translateY(-1px);*/
+  /*}*/
+  /*100% {*/
+  /*  !*opacity: 1;*!*/
+  /*  transform: translateY(0);*/
+  /*}*/
+}
+
+@keyframes smoothTopToBottom {
+  /*0% {*/
+  /*  !*opacity: 0;*!*/
+  /*  transform: translateY(1px);*/
+  /*}*/
+  /*100% {*/
+  /*  !*opacity: 1;*!*/
+  /*  transform: translateY(0);*/
+  /*}*/
+}
+
+* {
+  box-sizing: border-box;
+}
+
+div,
+label,
+textarea,
+button,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+div.select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  margin: 1px 0;
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 23%);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
+div.select:hover {
+  border-color: rgba(0, 0, 0, 87%);
+}
+
+div.select:focus-within {
+  border-color: #1976d2;
+  outline: 1px solid #1976d2;
+}
+
+div.select.open {
+  border-color: #1976d2;
+  outline: 1px solid #1976d2;
+}
+
+div.select.top {
+  flex-direction: column-reverse;
+}
+
+div.select-search {
+  display: flex;
+  align-items: center;
+  min-width: 30px;
+  padding: 8px 4px 8px 5px;
+}
+
+div.select-search > label {
+  position: absolute;
+  left: 14px;
+  display: block;
+  max-width: calc(100% - 24px);
+  height: 1rem;
+  padding: 0 4px;
+  font-size: 1rem;
+  color: #767676;
+  background-color: #ffffff;
+  transition:
+          color 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+          transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+          opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  transform: scale(1);
+}
+
+div.select-search > label.hidden {
+  display: none;
+  opacity: 0;
+}
+
+div.select-search label.top {
+  top: 0;
+  bottom: unset;
+  color: rgba(0, 0, 0, 60%);
+  background-color: #ffffff;
+  transform: translateY(-50%) scale(0.75);
+}
+
+div.select-search:focus-within > label {
+  top: 0;
+  bottom: unset;
+  color: #1976d2;
+  background-color: #ffffff;
+  transform: translateY(-50%) scale(0.75);
+}
+
+div.select-search.open label.top,
+div.select-search:focus-within label.top {
+  color: #1976d2;
+}
+
+div.select-search > textarea {
+  flex-grow: 1;
+  height: 1.4375em;
+  padding: 8px 4px 8px 5px;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.4375em;
+  letter-spacing: 0.0094em;
+  resize: none;
+  background-color: transparent;
+  border: none;
+}
+
+div.select-search > textarea:focus {
+  outline: none;
+}
+
+div.select-search > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 54%);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+div.select-search > button svg {
+  flex-shrink: 0;
+}
+
+div.select-search > button:hover {
+  background-color: rgba(0, 0, 0, 4%);
+}
+
+button.delete-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+button.open-btn {
+  transform: rotate(180deg);
+}
+
+div.fake-list {
+  position: relative;
+  top: 3px;
+  z-index: 1;
+  height: 0.1px;
+  overflow: visible;
+  background-color: transparent;
+}
+
+ul.option-list {
+  max-height: 40vh;
+  padding: 6px 0;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 4px;
+  outline: 1px solid #ffffff;
+  box-shadow: rgba(0, 0, 0, 12%) 0 1px 3px, rgba(0, 0, 0, 24%) 0 1px 2px;
+  opacity: 0;
+}
+
+ul.fake-list.bottom {
+  opacity: 1;
+  }
+
+ul.fake-list.top {
+  opacity: 1;
+ }
+
+ul.option-list.bottom {
+  opacity: 1;
+  transform: translateY(0);
+  animation: smoothBottomToTop 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+ul.option-list.top {
+  opacity: 1;
+  transform: translateY(0);
+  animation: smoothTopToBottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+ul.option-list > li {
+  display: flex;
+}
+
+button.option-btn {
+  flex: 1;
+  min-width: 100%;
+  max-width: calc(100vw - 60px);
+  min-height: 48px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 87%);
+  text-align: start;
+  letter-spacing: 0.0094em;
+  cursor: pointer;
+}
+
+button.option-btn:disabled {
+  color: rgba(0, 0, 0, 60%);
+  cursor: default;
+}
+
+button.option-btn.hovered {
+  background-color: rgba(0, 0, 0, 4%);
+}
+
+button.option-btn.selected {
+  background-color: rgba(25, 118, 210, 12%);
+}
+
+button.option-btn.selected:hover {
+  background-color: rgba(25, 118, 210, 20%);
+}
