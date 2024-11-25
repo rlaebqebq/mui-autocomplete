@@ -1,9 +1,13 @@
 ## 해야하는 일
 - optionList 위아래로 전환될때 깜빡이는 부분 수정
 
-----
+<br />
+<br />
+<br />
 
-# Mui AutoCompelete 클론
+# Mui AutoCompelete 구현
+
+<img src="https://github.com/user-attachments/assets/0ff93ac2-35d1-449e-bc16-6332d30124dc" height="300"/>
 
 ## 기술스택
 `React`, `TypeScript`, `CSS`, `React Testing Library`, `Jest`, `pnpm`
