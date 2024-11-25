@@ -1,13 +1,6 @@
-import {
-  MutableRefObject,
-  RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import type { TPosition } from "./position.d";
-import { TOption } from "./option.d";
+import { MutableRefObject, RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { TPosition } from './position.d';
+import { TOption } from './option.d';
 
 const useDropdownPosition = ({
   selectRef,
@@ -18,9 +11,7 @@ const useDropdownPosition = ({
   isOptionListOpen: boolean;
   options: TOption[];
 }): {
-  optionListPosition:
-    | { position: TPosition; topY: number; rectHeight: number }
-    | undefined;
+  optionListPosition: { position: TPosition; topY: number; rectHeight: number } | undefined;
   optionListRef: MutableRefObject<HTMLUListElement | null>;
 } => {
   const optionListRef = useRef<HTMLUListElement | null>(null);
@@ -41,14 +32,14 @@ const useDropdownPosition = ({
       return;
     }
 
-    optionList.style.maxHeight = "40vh";
+    optionList.style.maxHeight = '40vh';
 
     const optionListRectHeight = optionList.getBoundingClientRect().height;
     const selectRect = select.getBoundingClientRect();
     const spaceAbove = selectRect.top;
     const spaceBelow = window.innerHeight - selectRect.bottom;
 
-    let position: TPosition = optionListPosition?.position ?? "bottom";
+    let position: TPosition = optionListPosition?.position ?? 'bottom';
     let topY = 0;
     let rectHeight = optionListRectHeight;
 
@@ -58,23 +49,18 @@ const useDropdownPosition = ({
     }
 
     if (rectHeight <= spaceBelow && rectHeight <= spaceAbove) {
-      position = "bottom";
+      position = 'bottom';
       topY = 0;
     } else if (rectHeight <= spaceAbove) {
-      position = "top";
+      position = 'top';
       topY = rectHeight;
     } else if (rectHeight <= spaceBelow) {
-      position = "bottom";
+      position = 'bottom';
       topY = 0;
     }
 
     setDropdownPosition((prev) => {
-      if (
-        !prev ||
-        prev.position !== position ||
-        prev.topY !== topY ||
-        prev.rectHeight !== rectHeight
-      ) {
+      if (!prev || prev.position !== position || prev.topY !== topY || prev.rectHeight !== rectHeight) {
         return { position, topY, rectHeight };
       }
       return prev;
@@ -82,16 +68,16 @@ const useDropdownPosition = ({
   }, [isOptionListOpen, selectRef, optionListRef, optionListPosition]);
 
   useEffect(() => {
-    window.addEventListener("resize", calculateDropdown);
-    window.addEventListener("scroll", calculateDropdown);
+    window.addEventListener('resize', calculateDropdown);
+    window.addEventListener('scroll', calculateDropdown);
 
     return () => {
-      window.removeEventListener("resize", calculateDropdown);
-      window.removeEventListener("scroll", calculateDropdown);
+      window.removeEventListener('resize', calculateDropdown);
+      window.removeEventListener('scroll', calculateDropdown);
     };
   }, [calculateDropdown]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     calculateDropdown();
   }, [isOptionListOpen, options, calculateDropdown]);
 

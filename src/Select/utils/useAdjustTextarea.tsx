@@ -1,5 +1,5 @@
-import { MutableRefObject, useEffect, useRef } from "react";
-import type { TOption } from "./option.d";
+import { MutableRefObject, useEffect, useRef } from 'react';
+import type { TOption } from './option.d';
 
 const useAdjustTextarea = ({
   keyword,
@@ -12,7 +12,7 @@ const useAdjustTextarea = ({
 
   const adjustHeight = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "0px";
+      textareaRef.current.style.height = '0px';
       const { scrollHeight } = textareaRef.current;
       textareaRef.current.style.height = `${scrollHeight}px`;
     }
@@ -24,10 +24,10 @@ const useAdjustTextarea = ({
 
   useEffect(() => {
     adjustHeight();
-    window.addEventListener("resize", adjustHeight);
+    window.addEventListener('resize', adjustHeight);
 
     return () => {
-      window.removeEventListener("resize", adjustHeight);
+      window.removeEventListener('resize', adjustHeight);
     };
   }, []);
 

@@ -1,14 +1,6 @@
-import {
-  Dispatch,
-  MutableRefObject,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 
-import type { TOption } from "./option.d";
+import type { TOption } from './option.d';
 
 const useDropdownKeyHandler = ({
   selectRef,
@@ -50,29 +42,29 @@ const useDropdownKeyHandler = ({
 
       if (isOptionListOpen) {
         switch (e.key) {
-          case "ArrowUp":
+          case 'ArrowUp':
             e.preventDefault();
             setIsKeyboardNavigate(true);
             setOptionCursor((prev) => (prev - 1 < 0 ? size - 1 : prev - 1));
             break;
-          case "ArrowDown":
+          case 'ArrowDown':
             e.preventDefault();
             setIsKeyboardNavigate(true);
             setOptionCursor((prev) => (prev < size - 1 ? prev + 1 : 0));
             break;
-          case "Tab":
+          case 'Tab':
             e.preventDefault();
             handleOptionListClose();
 
             break;
-          case "Enter":
+          case 'Enter':
             e.preventDefault();
             if (optionCursor > -1 && options[optionCursor]) {
               onChange(options[optionCursor]);
               handleOptionListClose();
             }
             break;
-          case "Escape":
+          case 'Escape':
             e.preventDefault();
             handleOptionListClose();
 
@@ -80,8 +72,8 @@ const useDropdownKeyHandler = ({
         }
       } else {
         switch (e.key) {
-          case "ArrowUp":
-          case "ArrowDown":
+          case 'ArrowUp':
+          case 'ArrowDown':
             e.preventDefault();
             handleOptionListOpen();
             break;
@@ -102,12 +94,12 @@ const useDropdownKeyHandler = ({
 
   useEffect(() => {
     const handleKeyUp = () => setIsKeyboardNavigate(false);
-    window.addEventListener("keydown", handleKeyEvent);
-    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener('keydown', handleKeyEvent);
+    window.addEventListener('keyup', handleKeyUp);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyEvent);
-      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener('keydown', handleKeyEvent);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [handleKeyEvent]);
 
@@ -125,13 +117,13 @@ const useDropdownKeyHandler = ({
         const offset = rect.bottom - containerRect.bottom;
         container.scrollTo({
           top: container.scrollTop + offset,
-          behavior: "auto",
+          behavior: 'auto',
         });
       } else if (rect.top < containerRect.top) {
         const offset = rect.top - containerRect.top;
         container.scrollTo({
           top: container.scrollTop + offset,
-          behavior: "auto",
+          behavior: 'auto',
         });
       }
     },

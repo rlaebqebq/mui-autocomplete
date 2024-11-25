@@ -1,19 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
-import type { TOption } from "./option.d";
-import debounce from "./debounce";
+import type { TOption } from './option.d';
+import debounce from './debounce';
 
-const filterData = ({
-  data,
-  keyword,
-}: {
-  data: Array<TOption>;
-  keyword: string;
-}): Array<TOption> => {
+const filterData = ({ data, keyword }: { data: Array<TOption>; keyword: string }): Array<TOption> => {
   const lowerCaseKeyword = keyword.toLowerCase();
-  return data.filter((item) =>
-    item.label.toLowerCase().includes(lowerCaseKeyword),
-  );
+  return data.filter((item) => item.label.toLowerCase().includes(lowerCaseKeyword));
 };
 
 const useResolveFilterOptions = (
@@ -45,7 +37,7 @@ const useResolveFilterOptions = (
       setIsError(false);
 
       try {
-        if (typeof options === "function") {
+        if (typeof options === 'function') {
           const data = await options();
           setResolvedOptions(data || []);
         } else {

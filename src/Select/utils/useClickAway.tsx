@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useRef } from 'react';
 
 const useClickAway = (callback: () => void): MutableRefObject<HTMLDivElement | null> => {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -18,15 +18,15 @@ const useClickAway = (callback: () => void): MutableRefObject<HTMLDivElement | n
     };
 
     const currentRef = divRef.current;
-    if (currentRef) currentRef.addEventListener("blur", handleBlur);
+    if (currentRef) currentRef.addEventListener('blur', handleBlur);
 
-    document.addEventListener("mouseup", handleClickAway);
-    document.addEventListener("touchend", handleClickAway);
+    document.addEventListener('mouseup', handleClickAway);
+    document.addEventListener('touchend', handleClickAway);
 
     return () => {
-      if (currentRef) currentRef.removeEventListener("blur", handleBlur);
-      document.removeEventListener("mouseup", handleClickAway);
-      document.removeEventListener("touchend", handleClickAway);
+      if (currentRef) currentRef.removeEventListener('blur', handleBlur);
+      document.removeEventListener('mouseup', handleClickAway);
+      document.removeEventListener('touchend', handleClickAway);
     };
   }, [callback]);
 

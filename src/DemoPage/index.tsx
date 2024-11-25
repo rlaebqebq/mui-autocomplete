@@ -12,18 +12,23 @@ const DemoPage = () => {
 
   return (
     <main>
-      <Select label='Movie' value={selectedOption} options={top100Films} onChange={(value) => setSelectedOption(value)} />
+      <Select
+        label='Movie'
+        value={selectedOption}
+        options={top100Films}
+        onChange={(value) => setSelectedOption(value)}
+      />
 
-      <div className="empty-box">select 테스트를 위한 빈 박스</div>
-      <div className="select-box">
+      <div className='empty-box'>select 테스트를 위한 빈 박스</div>
+      <div className='select-box'>
         <Select
-          label="Movie"
+          label='Movie'
           value={selectedOption2}
           options={fetchTop100Films}
           onChange={(value) => setSelectedOption2(value)}
         />
       </div>
-      <div className="empty-box">select 테스트를 위한 빈 박스</div>
+      <div className='empty-box'>select 테스트를 위한 빈 박스</div>
     </main>
   );
 };
