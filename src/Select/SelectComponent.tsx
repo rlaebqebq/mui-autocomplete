@@ -1,41 +1,35 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
-import useResolveFilterOptions from "./utils/useResolveFilterOptions";
-import useAdjustTextarea from "./utils/useAdjustTextarea";
-import useClickAway from "./utils/useClickAway";
-import useDropdownPosition from "./utils/useDropdownPosition";
-import useDropdownKeyHandler from "./utils/useDropdownKeyHandler";
-import type { TOption } from "./utils/option.d";
+import useResolveFilterOptions from './utils/useResolveFilterOptions';
+import useAdjustTextarea from './utils/useAdjustTextarea';
+import useClickAway from './utils/useClickAway';
+import useDropdownPosition from './utils/useDropdownPosition';
+import useDropdownKeyHandler from './utils/useDropdownKeyHandler';
+import type { TOption } from './utils/option.d';
 
-import { ChevronDownIcon, XMarkIcon } from "./assets";
-import "./style.css";
-
-type TSelectProps = {
-  label?: string;
-  value?: TOption;
-  options: Array<TOption> | (() => Promise<Array<TOption>>);
-  onChange: (option: TOption | undefined) => void;
-};
+import { ChevronDownIcon, XMarkIcon } from './assets';
+import styles from './select.module.css';
 
 const Select = ({
   label,
   options,
   value,
   onChange,
-}: TSelectProps): ReactElement => {
+}: {
+  label?: string;
+  value?: TOption;
+  options: Array<TOption> | (() => Promise<Array<TOption>>);
+  onChange: (option: TOption | undefined) => void;
+}): ReactElement => {
   const [isMouseNavigate, setIsMouseNavigate] = useState<boolean>(false);
 
-  const [keyword, setKeyword] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>('');
 
   const [isOptionListOpen, setIsOptionListOpen] = useState<boolean>(false);
 
   const [optionCursor, setOptionCursor] = useState(-1);
 
-  const {
-    resolvedOptions: filterOption,
-    isLoading,
-    isError,
-  } = useResolveFilterOptions(options, keyword, value);
+  const { resolvedOptions: filterOption, isLoading, isError } = useResolveFilterOptions(options, keyword, value);
 
   const textareaRef = useAdjustTextarea({ keyword, value });
 
@@ -70,9 +64,7 @@ const Select = ({
 
   useEffect(() => {
     if (value) {
-      const findIndex = filterOption.findIndex(
-        (i) => i.value === value.value && i.label === value.label,
-      );
+      const findIndex = filterOption.findIndex((i) => i.value === value.value && i.label === value.label);
       if (findIndex > -1) {
         setOptionCursor(findIndex);
       }
@@ -83,25 +75,25 @@ const Select = ({
 
   useEffect(() => {
     if (!isOptionListOpen) {
-      setKeyword(value ? value.label : "");
+      setKeyword(value ? value.label : '');
     }
   }, [isOptionListOpen, value]);
 
   return (
     <div
       ref={selectRef}
-      data-testid="select"
-      className={`select ${optionListPosition?.position || ""} ${isOptionListOpen ? "open" : ""} ${isLoading ? "loading" : ""}${
-        isError ? "error" : ""
+      data-testid='select'
+      className={`${styles.select} ${optionListPosition?.position === 'top' ? `${styles.selectTop}` : ''} ${isOptionListOpen ? `${styles.selectOpen}` : ''}${isLoading ? 'loading' : ''}${
+        isError ? 'error' : ''
       }`}
     >
       <div
-        className={isOptionListOpen ? "select-search open" : "select-search"}
-        role="combobox"
-        data-testid="select-input-area"
-        aria-controls="option-list"
+        className={isOptionListOpen ? `${styles.open}` : ''}
+        role='combobox'
+        data-testid='select-input-area'
+        aria-controls='option-list'
         aria-expanded={isOptionListOpen}
-        aria-haspopup="listbox"
+        aria-haspopup='listbox'
         tabIndex={-1}
         onClick={() => {
           setIsOptionListOpen((prev) => {
@@ -116,49 +108,49 @@ const Select = ({
           htmlFor={`select-${label}`}
           className={useMemo(() => {
             if (!label) {
-              return "hidden";
+              return 'hidden';
             }
             if (isOptionListOpen) {
               switch (optionListPosition?.position) {
-                case "top":
-                  return "hidden";
-                case "bottom":
-                  return "top";
+                case 'top':
+                  return 'hidden';
+                case 'bottom':
+                  return 'labelTop';
                 default:
-                  return "";
+                  return '';
               }
             }
-            return value ? "top" : "";
+            return value ? 'labelTop' : '';
           }, [label, isOptionListOpen, optionListPosition?.position, value])}
         >
-          {label || ""}
+          {label || ''}
         </label>
         <textarea
           id={`select-${label}`}
-          data-testid="select-textarea"
+          data-testid='select-textarea'
           ref={textareaRef}
-          autoComplete="off"
+          autoComplete='off'
           spellCheck={false}
-          value={keyword || ""}
+          value={keyword || ''}
           tabIndex={0}
           onChange={({ currentTarget }) => {
             setKeyword(currentTarget.value);
             setIsOptionListOpen(true);
 
-            if (currentTarget.value === "") {
+            if (currentTarget.value === '') {
               onChange(undefined);
             }
           }}
         />
         {value && (
           <button
-            type="button"
-            aria-label="select-delete-btn"
-            data-testid="select-delete-btn"
-            className="delete-btn"
+            type='button'
+            aria-label='select-delete-btn'
+            data-testid='select-delete-btn'
+            className={styles.deleteBtn}
             onClick={(e) => {
               e.stopPropagation();
-              setKeyword("");
+              setKeyword('');
               onChange(undefined);
             }}
           >
@@ -168,10 +160,10 @@ const Select = ({
         {useMemo(() => {
           return (
             <button
-              type="button"
-              aria-label="select-open-btn"
-              data-testid="select-open-btn"
-              className={isOptionListOpen ? "open-btn" : ""}
+              type='button'
+              aria-label='select-open-btn'
+              data-testid='select-open-btn'
+              className={isOptionListOpen ? `${styles.openBtn}` : ''}
               onClick={(e) => {
                 e.stopPropagation();
                 setIsOptionListOpen((prev) => !prev);
@@ -183,37 +175,21 @@ const Select = ({
         }, [isOptionListOpen])}
       </div>
       {isOptionListOpen && (
-        <div
-          className="fake-list"
-          style={
-            optionListPosition?.topY
-              ? { top: `-${optionListPosition.topY + 2}px` }
-              : {}
-          }
-        >
+        <div style={optionListPosition?.topY ? { top: `-${optionListPosition.topY + 2}px` } : {}}>
           <ul
-            role="listbox"
-            data-testid="option-list"
+            role='listbox'
+            data-testid='option-list'
             ref={optionListRef}
             onMouseDown={(e) => e.preventDefault()}
-            className={`option-list ${optionListPosition?.position || ""}`}
+            className={optionListPosition?.position !== undefined ? styles[`list${optionListPosition?.position}`] : ''}
             onMouseMove={() => setIsMouseNavigate(true)}
-            style={
-              optionListPosition?.rectHeight
-                ? { maxHeight: `${optionListPosition?.rectHeight}px` }
-                : {}
-            }
+            style={optionListPosition?.rectHeight ? { maxHeight: `${optionListPosition?.rectHeight}px` } : {}}
           >
             {(() => {
               if (isLoading) {
                 return (
                   <li>
-                    <button
-                      type="button"
-                      className="option-btn loading-btn"
-                      data-testid="option"
-                      disabled
-                    >
+                    <button type='button' className={`${styles.optionBtn} loading-btn`} data-testid='option' disabled>
                       Loading...
                     </button>
                   </li>
@@ -222,12 +198,7 @@ const Select = ({
               if (isError) {
                 return (
                   <li>
-                    <button
-                      type="button"
-                      className="option-btn error-btn"
-                      data-testid="option"
-                      disabled
-                    >
+                    <button type='button' className={`${styles.optionBtn} error-btn`} data-testid='option' disabled>
                       Error
                     </button>
                   </li>
@@ -236,12 +207,7 @@ const Select = ({
               if (filterOption.length < 1) {
                 return (
                   <li>
-                    <button
-                      type="button"
-                      className="option-btn"
-                      data-testid="option"
-                      disabled
-                    >
+                    <button type='button' className={styles.optionBtn} data-testid='option' disabled>
                       No Options
                     </button>
                   </li>
@@ -254,12 +220,12 @@ const Select = ({
                 return (
                   <li key={option.value}>
                     <button
-                      type="button"
+                      type='button'
                       ref={(e) => {
                         optionButtonsRef.current[idx] = e;
                       }}
-                      data-testid="option"
-                      className={`option-btn ${isHovered ? "hovered" : ""} ${isSelected ? "selected" : ""}`}
+                      data-testid='option'
+                      className={`${isHovered ? `${styles.hovered}` : ''} ${isSelected ? `${styles.selected}` : ''}`}
                       onMouseEnter={() => {
                         if (isMouseNavigate) setOptionCursor(idx);
                       }}
