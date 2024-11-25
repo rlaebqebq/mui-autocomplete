@@ -96,9 +96,6 @@ importers:
       stylelint-config-recess-order:
         specifier: ^5.1.1
         version: 5.1.1(stylelint@16.10.0(typescript@4.9.5))
-      stylelint-declaration-strict-value:
-        specifier: ^1.8.0
-        version: 1.10.6(stylelint@16.10.0(typescript@4.9.5))
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -5218,12 +5215,6 @@ packages:
     resolution: {integrity: sha512-eDAHWVBelzDbMbdMj15pSw0Ycykv5eLeriJdbGCp0zd44yvhgZLI+wyVHegzXp5NrstxTPSxl0fuOVKdMm0XLA==}
     peerDependencies:
       stylelint: '>=16'
-
-  stylelint-declaration-strict-value@1.10.6:
-    resolution: {integrity: sha512-aZGEW4Ee26Tx4UvpQJbcElVXZ42EleujEByiyKDTT7t83EeSe9t0lAG3OOLJnnvLjz/dQnp+L+3IYTMeQI51vQ==}
-    engines: {node: '>=18.12.0'}
-    peerDependencies:
-      stylelint: '>=7 <=16'
 
   stylelint-order@6.0.4:
     resolution: {integrity: sha512-0UuKo4+s1hgQ/uAxlYU4h0o0HS4NiQDud0NAUNI0aa8FJdmYHA5ZZTFHiV5FpmE3071e9pZx5j0QpVJW5zOCUA==}
@@ -11894,10 +11885,6 @@ snapshots:
     dependencies:
       stylelint: 16.10.0(typescript@4.9.5)
       stylelint-order: 6.0.4(stylelint@16.10.0(typescript@4.9.5))
-
-  stylelint-declaration-strict-value@1.10.6(stylelint@16.10.0(typescript@4.9.5)):
-    dependencies:
-      stylelint: 16.10.0(typescript@4.9.5)
 
   stylelint-order@6.0.4(stylelint@16.10.0(typescript@4.9.5)):
     dependencies:
